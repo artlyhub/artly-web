@@ -1,6 +1,4 @@
-from io import StringIO
 import uuid
-from PIL import Image as Img
 
 from django.conf import settings
 from django.db import models
@@ -76,23 +74,6 @@ class ProfileImage(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.profile.user.username, self.id)
-
-    def save(self, *args, **kwargs):
-        if self.image:
-            img = Img.Open(StringIO.StringIO(self.image.read()))
-            if img.mode != 'RGB':
-                img = img.convert('RGB')
-            img.thumbnail((self.image.width/1.5, self.image.height/1.5), Img.ANTIALIAS)
-            output = StringIO.StringIO()
-            img.save(output, format='JPEG', quality=70)
-            output.seek(0)
-            self.image= InMemoryUploadedFile(output,
-                                             'ImageField',
-                                             "%s.jpg" % self.image.name.split('.')[0],
-                                             'image/jpeg',
-                                             output.len,
-                                             None)
-        super(ProfileImage, self).save(*args, **kwargs)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
