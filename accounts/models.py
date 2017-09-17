@@ -8,7 +8,7 @@ from rest_framework.authtoken.models import Token
 
 def scramble_uploaded_image(instance, filename):
     extension = filename.split(".")[-1]
-    return "{}.{}".format(uuid.uuid4(), extension)
+    return "profile/{}.{}".format(uuid.uuid4(), extension)
 
 
 class ProfileManager(models.Manager):
