@@ -1,0 +1,15 @@
+.html {
+  background-color: white;
+}
+
+.custom {
+  height: 100px;
+}
+
+.pusher {
+  margin-top: 70px;
+}
+
+.ui.label.transition.visible {
+  background-color: white;
+}

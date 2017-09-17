@@ -1,0 +1,98 @@
+@import url('https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/stylesheets/NotoSansKR-Hestia.css');
+
+body {
+    background-color: #fff;
+    color: #ececec;
+    font-family: 'Noto Sans Korean', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.brand {
+    height: auto;
+    width: auto;
+    max-height: 40px;
+    max-width: 150px;
+    margin: 7px;
+    margin-bottom: 6px;
+}
+
+.form-control:focus {
+  border-color: #E28FAC;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(226,143,172, 0.6);
+}
+
+nav.navbar-artly {
+    background: #fff;
+    border-color: #ccc;
+    box-shadow: 0 0 1px 0 #ccc;
+}
+
+nav.navbar-artly a {
+    color: #363636;
+}
+
+nav.navbar-artly ul.navbar-nav a {
+    color: #363636;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #fff;
+}
+
+nav.navbar-artly ul.navbar-nav a:hover,
+nav.navbar-artly ul.navbar-nav a:visited,
+nav.navbar-artly ul.navbar-nav a:focus,
+nav.navbar-artly ul.navbar-nav a:active {
+    background: #fff;
+}
+
+nav.navbar-artly ul.navbar-nav a:hover {
+    border-color: #363636;
+}
+
+nav.navbar-artly li.divider {
+    background: #ccc;
+}
+
+nav.navbar-artly button.navbar-toggle {
+    background: #363636;
+    border-radius: 2px;
+}
+
+nav.navbar-artly button.navbar-toggle:hover {
+    background: #999;
+}
+
+nav.navbar-artly button.navbar-toggle > span.icon-bar {
+    background: #fff;
+}
+
+nav.navbar-artly ul.dropdown-menu {
+    border: 0;
+    background: #fff;
+    border-radius: 4px;
+    margin: 4px 0;
+    box-shadow: 0 0 4px 0 #ccc;
+}
+
+nav.navbar-artly ul.dropdown-menu > li > a {
+    color: #363636;
+}
+
+nav.navbar-artly ul.dropdown-menu > li > a:hover {
+    background: #363636;
+    color: #fff;
+}
+
+nav.navbar-artly span.badge {
+    background: #363636;
+    font-weight: normal;
+    font-size: 11px;
+    margin: 0 4px;
+}
+
+nav.navbar-artly span.badge.new {
+    background: rgba(54, 54, 54, 0.8);
+    color: #fff;
+}
