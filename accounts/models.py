@@ -1,6 +1,6 @@
+from io import StringIO
 import uuid
 from PIL import Image as Img
-import StringIO
 
 from django.conf import settings
 from django.db import models
