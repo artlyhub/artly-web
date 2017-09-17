@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <title>아틀리허브</title>
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="{% static 'semantic.min.css' %}">
+    <!-- Font Awesome CSS  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'semantic_test.css' %}">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'balloon.css' %}">
+    <!-- jQuery + Semantic UI JS -->
+    <script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'semantic.min.js' %}"></script>
+  </head>
+
+    <body>
+
+      <!-- 네비게이션바 -->
+      <div class="ui borderless menu">
+        <div class="ui container">
+          <a href="#" data-balloon="아틀리에 오신 걸 환영합니다" data-balloon-pos="down"><img src="{% static 'artly_logo.png' %}" class="brand tada-logo" href="#"/></a>
+          <div class="right menu">
+            <a class="right item" href="{% url 'home' %}" data-balloon="여러분의 스토리를 공유하세요!" data-balloon-pos="down">
+              <i class="alarm outline icon"></i> <span id="mobile-hidden">커뮤니티</span>
+            </a>
+            <a class="right item" data-balloon="다른 작가들의 작품을 사보세요!" data-balloon-pos="down">
+              <span id="mobile-hidden">옥션</span> <i class="medium warning circle icon"></i>
+            </a>
+            <a class="right item" data-balloon="여러 사람들의 프로젝트를 구경하세요!" data-balloon-pos="down">
+              <i class="rocket icon"></i> <span id="mobile-hidden">크라우드펀딩</span>
+            </a>
+            <a class="right item" href="{% url 'login' %}">
+              <i class="checkmark box icon"></i> <span id="mobile-hidden">로그인</span>
+            </a>
+            <a class="right item" id="mobile-hidden">
+              <i class="edit icon"></i> <span id="mobile-hidden">회원가입</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui stackable three column grid">
+        <div class="row">
+          <div class="four wide column"></div>
+          <div class="eight wide column">
+            <h1 class="animate-text">여러분의 이야기가 궁금합니다</h1>
+            <h2>모든 사건에는, 모든 작품에는, 그리고 모든 사람에게는 각자의 이야기가 있습니다.</h2>
+          </div>
+          <div class="four wide column"></div>
+        </div>
+        <div class="row buttons-row">
+          <div class="six wide column"></div>
+          <div class="four wide column">
+            <button class="ui fluid animated black button pulse-btn" href="#">
+              <span class="visible content">바로 시작하기 <i class="leaf icon"></i></span>
+              <span class="hidden content"><i class="large space shuttle icon"></i></span>
+            </button>
+          </div>
+          <div class="six wide column"></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+      $(document).ready(function() {
+        setTimeout(
+          function()
+          {
+            $(".animate-text").transition("jiggle");
+            $(".pulse-btn").transition("pulse");
+          }, 950);
+          setTimeout(
+            function()
+            {
+              $(".tada-logo").transition("tada");
+            }, 1800);
+      });
+
+      $(".ui.dropdown").dropdown();
+      </script>
+
+    </body>
+  </html>
