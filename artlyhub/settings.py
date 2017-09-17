@@ -19,8 +19,8 @@ DB_USER = sensitives['db_user']
 DB_PW = sensitives['db_pw']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = sensitives['debug']
+# DEBUG = True
+DEBUG = sensitives['debug']
 
 ALLOWED_HOSTS = ['artlyhub.com',
                  'www.artlyhub.com',
