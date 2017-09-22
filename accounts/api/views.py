@@ -10,6 +10,7 @@ from accounts.api.serializers import (
     FollowerSerializer,
     ProfileImageSerializer,
     ProfileSerializer,
+    UserProfileImageSerializer,
     # UserItemSerializer,
     UserLoginSerializer,
     UserSerializer,
@@ -68,6 +69,11 @@ class ProfileImageAPIView(generics.ListCreateAPIView):
 class ProfileImageDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
+
+
+class UserProfileImageAPIView(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = UserProfileImageSerializer
 
 
 class FollowerAPIView(generics.RetrieveAPIView):

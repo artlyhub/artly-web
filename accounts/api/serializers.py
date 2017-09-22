@@ -81,10 +81,21 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileImage
-        fields = ('profile',
+        fields = ('id',
+                  'profile',
                   'image',
                   'created',
                   'updated',)
+
+
+class UserProfileImageSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer(read_only=True)
+    profile_images = ProfileImageSerializer(many=True)
+
+    class Meta:
+        model = Profile
+        fields = ('user',
+                  'profile_images',)
 
 
 class FollowerSerializer(serializers.ModelSerializer):

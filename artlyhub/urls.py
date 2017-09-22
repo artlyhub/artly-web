@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='test.html'), name='test'),
+    url(r'^demo/$', TemplateView.as_view(template_name='index.html'), name='demo'),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('restapi.urls', namespace='api')),
     url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),

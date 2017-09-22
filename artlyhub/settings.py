@@ -38,15 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_celery_beat',
-    'django_celery_results',
 
     'rest_framework',
     'rest_framework.authtoken',
 
     'accounts',
+    'items',
     'restapi',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'django_celery_beat',
+        'django_celery_results',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +143,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_DIR = os.path.join(BASE_DIR, 'static-dev/')
 STATICFILES_DIRS = [
-    os.path.join(STATIC_DIR, "css"),
+    os.path.join(STATIC_DIR, "css/dist"),
+    os.path.join(STATIC_DIR, "js/dist"),
     os.path.join(STATIC_DIR, "img"),
     os.path.join(STATIC_DIR, "semantic/dist"),
     os.path.join(STATIC_DIR, "vendor/jquery/dist"),
@@ -152,9 +158,10 @@ if DEBUG:
 else:
     MEDIA_ROOT = sensitives['media_root']
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
+if not DEBUG:
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = TIME_ZONE

@@ -11,15 +11,16 @@ from accounts.api.views import (
     ProfileDetailsAPIView,
     UserAPIView,
     UserDetailsAPIView,
+    UserProfileImageAPIView,
     # UserItemsAPIView,
     UserLoginAPIView,
 )
-# from items.api.views import (
-#     ImageAPIView,
-#     ImageDetailsAPIView,
-#     ItemAPIView,
-#     ItemDetailsAPIView
-# )
+from items.api.views import (
+    ImageAPIView,
+    ImageDetailsAPIView,
+    ItemAPIView,
+    ItemDetailsAPIView
+)
 
 urlpatterns = {
     # token maker
@@ -39,6 +40,8 @@ urlpatterns = {
         ProfileDetailsAPIView.as_view(), name="profile-details"),
     url(r'profile/(?P<pk>[\w.@+-]+)/followers/$',
         FollowerAPIView.as_view(), name="followers"),
+    url(r'profile/(?P<pk>[\w.@+-]+)/profile-images/$',
+        UserProfileImageAPIView.as_view(), name="profile-images"),
     url(r'^profile-image/$',
         ProfileImageAPIView.as_view(), name="profile-image"),
     url(r'profile-image/(?P<pk>\d+)/$',
@@ -46,15 +49,15 @@ urlpatterns = {
 
      url(r'^follow/$', FollowerAddAPIView.as_view(), name='follow'),
 
-    # # user uploaded images (related to items)
-    # url(r'^image/$', ImageAPIView.as_view(), name="image"),
-    # url(r'image/(?P<pk>\d+)/$',
-    #     ImageDetailsAPIView.as_view(), name="image-details"),
-    #
-    # # user uploaded items
-    # url(r'^item/$', ItemAPIView.as_view(), name="item"),
-    # url(r'item/(?P<pk>\d+)/$',
-    #     ItemDetailsAPIView.as_view(), name="item-details"),
+    # user uploaded images (related to items)
+    url(r'^image/$', ImageAPIView.as_view(), name="image"),
+    url(r'image/(?P<pk>\d+)/$',
+        ImageDetailsAPIView.as_view(), name="image-details"),
+
+    # user uploaded items
+    url(r'^item/$', ItemAPIView.as_view(), name="item"),
+    url(r'item/(?P<pk>\d+)/$',
+        ItemDetailsAPIView.as_view(), name="item-details"),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)
