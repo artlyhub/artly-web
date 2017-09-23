@@ -167,8 +167,8 @@ if not DEBUG:
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TIMEZONE = TIME_ZONE
 
-    REST_FRAMEWORK = {
-        'DEFAULT_RENDERER_CLASSES': (
-            'rest_framework.renderers.JSONRenderer',
-        )
-    }
+    # REST_FRAMEWORK = {
+    #     'DEFAULT_RENDERER_CLASSES': (
+    #         'rest_framework.renderers.JSONRenderer',
+    #     )
+    # }
