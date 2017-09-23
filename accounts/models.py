@@ -50,6 +50,9 @@ class Profile(models.Model):
 
     objects = ProfileManager()
 
+    # class Meta:
+    #     ordering = ['-id']
+
     def __str__(self):
         return "{}".format(self.user.username)
 
@@ -63,12 +66,18 @@ class Profile(models.Model):
         followed_by = self.user.followed_by.all()
         return followed_by.exclude(user=self.user.username)
 
+    @property
+    def items_list(self):
+        items = self.user.items.all()
+        return items
+
 
 class ProfileImage(models.Model):
     profile = models.ForeignKey(Profile,
                                 on_delete=models.CASCADE,
                                 related_name='profile_images')
     image = models.ImageField(upload_to=scramble_uploaded_image)
+    status_main = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

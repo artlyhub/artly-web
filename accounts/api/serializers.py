@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 
 from accounts.models import Profile, ProfileImage
+from items.api.serializers import ItemSerializer
 
 User = get_user_model()
 
@@ -84,6 +85,7 @@ class ProfileImageSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'profile',
                   'image',
+                  'status_main',
                   'created',
                   'updated',)
 
@@ -94,8 +96,19 @@ class UserProfileImageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user',
-                  'profile_images',)
+        fields = ('user', 'profile_images',)
+
+
+class UserItemSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'items',)
+
+    def get_items(self, obj):
+        return [item.id for item in obj.items_list]
 
 
 class FollowerSerializer(serializers.ModelSerializer):

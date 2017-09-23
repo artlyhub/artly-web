@@ -44,10 +44,11 @@ INSTALLED_APPS = [
 
     'accounts',
     'items',
+    # 'likes',
     'restapi',
 ]
 
-if DEBUG:
+if not DEBUG:
     INSTALLED_APPS += [
         'django_celery_beat',
         'django_celery_results',
@@ -165,3 +166,9 @@ if not DEBUG:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TIMEZONE = TIME_ZONE
+
+    REST_FRAMEWORK = {
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+        )
+    }

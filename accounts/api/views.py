@@ -11,31 +11,38 @@ from accounts.api.serializers import (
     ProfileImageSerializer,
     ProfileSerializer,
     UserProfileImageSerializer,
-    # UserItemSerializer,
+    UserItemSerializer,
     UserLoginSerializer,
     UserSerializer,
 )
-# from items.api.serializers import ImageSerializer, ItemSerializer
 from accounts.models import Profile, ProfileImage
-# from items.models import Image, Item
+from utils.permissions import IsOwnerOrReadOnly
+from utils.paginations import UserResultPagination, StandardResultPagination
 
 User = get_user_model()
 
 
+## Issue: None
 class UserAPIView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.get_queryset().order_by('-id') # shows recent user first in list
+                                                           # (solves 'UnorderedObjectListWarning')
     serializer_class = UserSerializer
+    pagination_class = UserResultPagination
+    # doesn't need permissions, anyone should be able to create new users
 
 
+## Issue: None
 class UserDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
+## Issue: None
 class UserLoginAPIView(APIView):
-    permission_classes = [permissions.AllowAny]
     serializer_class = UserLoginSerializer
+    permission_classes = (permissions.AllowAny,) # anyone should be able to try and logon
 
     def post(self, request, *args, **kwargs):
         data = request.data
@@ -48,41 +55,62 @@ class UserLoginAPIView(APIView):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
+## Issue: None
 class ProfileAPIView(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.get_queryset().order_by('user') # shows profiles in alphabetical order
     serializer_class = ProfileSerializer
+    pagination_class = UserResultPagination
+    # shouldn't have permissions, User will automatically create profile on registration
+    # since the user is not created yet, you should drop permissions
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
+## Issue: None
 class ProfileDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
+## Issue: None
 class ProfileImageAPIView(generics.ListCreateAPIView):
-    queryset = ProfileImage.objects.all()
+    queryset = ProfileImage.objects.get_queryset().order_by('created')
     serializer_class = ProfileImageSerializer
+    pagination_class = StandardResultPagination
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
+## Issue: None
 class ProfileImageDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
+## Issue:
+class UserItemAPIView(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = UserItemSerializer
+
+
+## Issue: None
 class UserProfileImageAPIView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = UserProfileImageSerializer
 
 
+## Issue: None
 class FollowerAPIView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = FollowerSerializer
 
 
+## Issue: None
 class FollowerAddAPIView(APIView):
     serializer_class = FollowerAddSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated():

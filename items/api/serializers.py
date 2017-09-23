@@ -1,26 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from accounts.api.serializers import UserSerializer
 from items.models import Image, Item
 
 User = get_user_model()
-
-
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
-    images = serializers.HyperlinkedRelatedField(many=True,
-                                                 view_name='api:image-details',
-                                                 read_only=True)
-
-    class Meta:
-        model = Item
-        fields = ('name',
-                  'user',
-                  'description',
-                  'images',
-                  'created',
-                  'updated')
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -28,8 +11,25 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ('item',
+        fields = ('id',
+                  'item',
                   'image',
                   'description',
+                  'status_main',
+                  'created',
+                  'updated')
+
+
+class ItemSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    images = ImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Item
+        fields = ('id',
+                  'name',
+                  'user',
+                  'description',
+                  'images',
                   'created',
                   'updated')

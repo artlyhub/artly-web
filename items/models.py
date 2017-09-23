@@ -21,13 +21,13 @@ class Item(models.Model):
         return '{} - {}'.format(self.name, self.user.username)
 
 
-# models that depend on any of the above models
 class Image(models.Model):
     item = models.ForeignKey(Item,
                              on_delete=models.CASCADE,
                              related_name='images')
     image = models.ImageField(upload_to=scramble_uploaded_image)
     description = models.TextField(blank=True)
+    status_main = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
