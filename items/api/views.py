@@ -7,8 +7,11 @@ from rest_framework.status import (
     HTTP_403_FORBIDDEN,)
 from rest_framework.views import APIView
 
-from items.api.serializers import ImageSerializer, ItemSerializer
+from items.api.serializers import (
+    ImageSerializer,
+    ItemSerializer,)
 from items.models import Image, Item
+from records.api.serializers import ItemFullSerializer
 from utils.permissions import IsOwnerOrReadOnly
 from utils.paginations import UserResultPagination, StandardResultPagination
 
@@ -32,6 +35,10 @@ class ItemDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
+
+class ItemFullAPIView(generics.RetrieveAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemFullSerializer
 
 ## Issue: None
 class ImageAPIView(generics.ListCreateAPIView):

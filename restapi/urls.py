@@ -19,8 +19,12 @@ from items.api.views import (
     ImageAPIView,
     ImageDetailsAPIView,
     ItemAPIView,
-    ItemDetailsAPIView
+    ItemDetailsAPIView,
+    ItemFullAPIView,
 )
+from likes.api.views import LikeImageAPIView, LikeItemAPIView
+from records.api.views import RecordAPIView
+from restapi.ItemCardView.views import ItemCardAPIView
 
 urlpatterns = {
     # token maker
@@ -56,8 +60,17 @@ urlpatterns = {
 
     # user uploaded items
     url(r'^item/$', ItemAPIView.as_view(), name="item"),
-    url(r'item/(?P<pk>\d+)/$',
+    url(r'^item/(?P<pk>\d+)/$',
         ItemDetailsAPIView.as_view(), name="item-details"),
+    url(r'^item/(?P<pk>\d+)/records$',
+        ItemFullAPIView.as_view(), name="item-records"),
+
+    url(r'^record/$', RecordAPIView.as_view(), name='record'),
+
+    url(r'^like/item/$', LikeItemAPIView.as_view(), name='item-like'),
+    url(r'^like/image/$', LikeImageAPIView.as_view(), name='image-like'),
+
+    url(r'^itemcardview/(?P<pk>\d+)/$', ItemCardAPIView.as_view(), name='itemcardview'),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)

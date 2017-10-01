@@ -38,6 +38,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user_obj
 
 
+class UserSearchSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id',
+                  'username',
+                  'name',)
+
+    def get_name(self, obj):
+        return obj.profile.name
+
+
 class UserLoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField()
 

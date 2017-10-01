@@ -50,9 +50,6 @@ class Profile(models.Model):
 
     objects = ProfileManager()
 
-    # class Meta:
-    #     ordering = ['-id']
-
     def __str__(self):
         return "{}".format(self.user.username)
 
@@ -70,6 +67,14 @@ class Profile(models.Model):
     def items_list(self):
         items = self.user.items.all()
         return items
+
+    @property
+    def main_profile_image(self):
+        profile_images = self.profile_images.all()
+        main_profile_image = profile_images.filter(status_main=1).first()
+        if main_profile_image != None:
+            main_profile_image_url = main_profile_image.image.url
+        return main_profile_image
 
 
 class ProfileImage(models.Model):

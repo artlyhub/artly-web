@@ -17,7 +17,7 @@ class ImageSerializer(serializers.ModelSerializer):
                   'description',
                   'status_main',
                   'created',
-                  'updated')
+                  'updated',)
 
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,4 +32,4 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
                   'description',
                   'images',
                   'created',
-                  'updated')
+                  'updated',)

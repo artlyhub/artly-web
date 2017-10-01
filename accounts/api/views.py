@@ -118,7 +118,7 @@ class FollowerAddAPIView(APIView):
             serializer = FollowerAddSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 follow = serializer.data['follow']
-                to_toggle_user = User.objects.all().filter(username=follow).first()
+                to_toggle_user = User.objects.filter(username=follow).first()
                 following = Profile.objects.toggle_follow(request.user, to_toggle_user)
                 if following:
                     return Response({'status': 'followed'}, status=HTTP_200_OK)

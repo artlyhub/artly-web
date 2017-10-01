@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from likes.models import ImageLike, ItemLike
+
+admin.site.register(ImageLike)
+admin.site.register(ItemLike)
