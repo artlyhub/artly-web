@@ -69,12 +69,11 @@ class Profile(models.Model):
         return items
 
     @property
-    def main_profile_image(self):
-        profile_images = self.profile_images.all()
-        main_profile_image = profile_images.filter(status_main=1).first()
-        if main_profile_image != None:
-            main_profile_image_url = main_profile_image.image.url
-        return main_profile_image
+    def profile_image(self):
+        profile_image = self.profile_images.order_by('-created').first()
+        if profile_image != None:
+            profile_image = profile_image.image.url
+        return profile_image
 
 
 class ProfileImage(models.Model):
@@ -82,7 +81,6 @@ class ProfileImage(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='profile_images')
     image = models.ImageField(upload_to=scramble_uploaded_image)
-    status_main = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

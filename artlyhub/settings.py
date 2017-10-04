@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'comments',
     'items',
     'likes',
-    'records',
     'restapi',
 ]
 
@@ -174,3 +173,11 @@ if not DEBUG:
     #         'rest_framework.renderers.JSONRenderer',
     #     )
     # }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}

@@ -45,6 +45,7 @@ class LikeManager(models.Manager):
         item = model[item_type].objects.get(pk=item_id)
         if model_like[item_type].objects.does_like(username, item_id, item_type):
             qs[item_type].filter(item=item).delete()
+            item.liked.filter(profile=profile).delete()
             liked = False
         else:
             itemlike = model_like[item_type](profile=profile, item=item)

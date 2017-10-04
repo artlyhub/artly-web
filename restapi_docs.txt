@@ -1,0 +1,48 @@
+# 아틀리 커뮤니티: Welcome to Artlyhub
+
+Domain name: https://www.artlyhub.com/
+
+1. Accounts API (유저, 프로필, 프로필사진):
+
+  * 유저 목록:
+  (목적: 관리자 목록 관리 기능, 실제 사용 안 함)
+    URL: /api/user/
+    REQ: GET
+
+  * 유저 생성:
+    URL: /api/user/
+    REQ: POST
+
+  * 유저 로그인:
+    URL: /api/login/
+    REQ: POST
+
+  * 유저 디테일, 수정, 삭제:
+    URL: /api/user/<username>/ (예. /api/user/test/)
+    REQ: GET, PUT, DELETE
+
+  * 프로필 목록:
+  (목적: 관리자 목록 관리 기능, 실제 사용 안 함)
+    URL: /api/profile/
+    REQ: GET
+
+  * 프로필 디테일, 수정, 삭제:
+    URL: /api/profile/<username>/ (예. /api/profile/test/)
+    REQ: GET, PUT, DELETE
+
+  * 프로필사진 목록:
+  (목적: 관리자 목록 관리 기능, 실제 사용 안 함)
+    URL: /api/profile-image/
+    REQ: GET
+
+  * 프로필사진 생성:
+    URL: /api/profile-image/
+    REQ: POST
+
+  * 프로필사진 디테일, 수정, 삭제:
+    URL: /api/profile-image/<id>/ (예. /api/profile-image/1/)
+    REQ: GET, PUT, DELETE
+
+  * 팔로우:
+    URL: /api/follow/
+    REQ: POST

@@ -6,7 +6,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from accounts.api.serializers import (
-    FollowerAddSerializer,
+    AddFollowerSerializer,
     FollowerSerializer,
     ProfileImageSerializer,
     ProfileSerializer,
@@ -81,6 +81,10 @@ class ProfileImageAPIView(generics.ListCreateAPIView):
     pagination_class = StandardResultPagination
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    def perform_create(self, serializer):
+        print(self.request.user.profile)
+        serializer.save(profile=self.request.user.profile)
+
 
 ## Issue: None
 class ProfileImageDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -108,14 +112,14 @@ class FollowerAPIView(generics.RetrieveAPIView):
 
 
 ## Issue: None
-class FollowerAddAPIView(APIView):
-    serializer_class = FollowerAddSerializer
+class AddFollowerAPIView(APIView):
+    serializer_class = AddFollowerSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             data = request.data
-            serializer = FollowerAddSerializer(data=data)
+            serializer = AddFollowerSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 follow = serializer.data['follow']
                 to_toggle_user = User.objects.filter(username=follow).first()

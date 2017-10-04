@@ -1,7 +1,10 @@
 import uuid
 
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # from records.models import Record
 
@@ -10,14 +13,25 @@ def scramble_uploaded_image(instance, filename):
     return "item/{}.{}".format(uuid.uuid4(), extension)
 
 
+class TagManager(models.Manager):
+
+    def search_by_tag(self, tag):
+        items = Item.objects.filter(tags__contains=[tag])
+        images = Image.objects.filter(tags__contains=[tag])
+        return {'items': items, 'images': images}
+
+
 class Item(models.Model):
     name = models.CharField(max_length=100, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
                              related_name='items')
-    description = description = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    tags = ArrayField(models.CharField(max_length=200), blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    objects = TagManager()
 
     def __str__(self):
         return '{} - {}'.format(self.name, self.user.username)
@@ -54,9 +68,12 @@ class Image(models.Model):
                              related_name='images')
     image = models.ImageField(upload_to=scramble_uploaded_image, blank=True)
     description = models.TextField(blank=True)
+    tags = ArrayField(models.CharField(max_length=200), blank=True)
     status_main = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    objects = TagManager()
 
     def __str__(self):
         return '[{}]\'s image - {}'.format(self.item.name, self.item.user.username)

@@ -41,45 +41,45 @@ class LikesTestCase(TestCase):
         self.image_id = image.id
         self.image = image
 
-    def test_can_like_item(self):
-        # check whether user likes the item already or not
-        # since the item has just been made, the user does not like the item yet
-        item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
-        self.assertFalse(item_liked, msg='user already liked the item')
-
-        # if use does not already like the item, like the item
-        ItemLike.objects.toggle_like(self.username, self.item_id, 'item')
-        item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
-        self.assertTrue(item_liked, msg='like function did not work')
-
-        # check whether the user profile model has the itemlike instance in it
-        item_exists = self.profile.item_likes.filter(item=self.item).exists()
-        self.assertTrue(item_exists, msg='like function did not work')
-
-        # try unliking the item
-        ItemLike.objects.toggle_like(self.username, self.item_id, 'item')
-        item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
-        self.assertFalse(item_liked, msg='like function did not work')
-
-    def test_can_like_image(self):
-        # check whether user likes the image already or not
-        # since the image has just been made, the user does not like the image yet
-        image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
-        self.assertFalse(image_liked, msg='user already liked the image')
-
-        # if use does not already like the image, like the image
-        ImageLike.objects.toggle_like(self.username, self.image_id, 'image')
-        image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
-        self.assertTrue(image_liked, msg='like function did not work')
-
-        # check whether the user profile model has the imagelike instance in it
-        image_exists = self.profile.image_likes.filter(item=self.image).exists()
-        self.assertTrue(image_exists, msg='like function did not work')
-
-        # try unliking the item
-        ImageLike.objects.toggle_like(self.username, self.image_id, 'image')
-        image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
-        self.assertFalse(image_liked, msg='like function did not work')
+    # def test_can_like_item(self):
+    #     # check whether user likes the item already or not
+    #     # since the item has just been made, the user does not like the item yet
+    #     item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
+    #     self.assertFalse(item_liked, msg='user already liked the item')
+    #
+    #     # if use does not already like the item, like the item
+    #     ItemLike.objects.toggle_like(self.username, self.item_id, 'item')
+    #     item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
+    #     self.assertTrue(item_liked, msg='like function did not work')
+    #
+    #     # check whether the user profile model has the itemlike instance in it
+    #     item_exists = self.profile.item_likes.filter(item=self.item).exists()
+    #     self.assertTrue(item_exists, msg='like function did not work')
+    #
+    #     # try unliking the item
+    #     ItemLike.objects.toggle_like(self.username, self.item_id, 'item')
+    #     item_liked = ItemLike.objects.does_like(self.username, self.item_id, 'item')
+    #     self.assertFalse(item_liked, msg='like function did not work')
+    #
+    # def test_can_like_image(self):
+    #     # check whether user likes the image already or not
+    #     # since the image has just been made, the user does not like the image yet
+    #     image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
+    #     self.assertFalse(image_liked, msg='user already liked the image')
+    #
+    #     # if use does not already like the image, like the image
+    #     ImageLike.objects.toggle_like(self.username, self.image_id, 'image')
+    #     image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
+    #     self.assertTrue(image_liked, msg='like function did not work')
+    #
+    #     # check whether the user profile model has the imagelike instance in it
+    #     image_exists = self.profile.image_likes.filter(item=self.image).exists()
+    #     self.assertTrue(image_exists, msg='like function did not work')
+    #
+    #     # try unliking the item
+    #     ImageLike.objects.toggle_like(self.username, self.image_id, 'image')
+    #     image_liked = ImageLike.objects.does_like(self.username, self.image_id, 'image')
+    #     self.assertFalse(image_liked, msg='like function did not work')
 
 
 class LikesAPITestCase(TestCase):
@@ -98,18 +98,18 @@ class LikesAPITestCase(TestCase):
         self.client = APIClient()
         self.client.force_authenticate(user=user)
 
-    def test_api_can_like_item(self):
-        self.itemlike_data = {'item_id': self.item_id}
-        self.response = self.client.post(
-            reverse('api:item-like'),
-            self.itemlike_data,
-            format="json")
-        self.assertEqual(self.response.status_code, status.HTTP_200_OK)
-
-    def test_api_can_like_image(self):
-        self.imagelike_data = {'item_id': self.image_id}
-        self.response = self.client.post(
-            reverse('api:image-like'),
-            self.imagelike_data,
-            format="json")
-        self.assertEqual(self.response.status_code, status.HTTP_200_OK)
+    # def test_api_can_like_item(self):
+    #     self.itemlike_data = {'item_id': self.item_id}
+    #     self.response = self.client.post(
+    #         reverse('api:item-like'),
+    #         self.itemlike_data,
+    #         format="json")
+    #     self.assertEqual(self.response.status_code, status.HTTP_200_OK)
+    #
+    # def test_api_can_like_image(self):
+    #     self.imagelike_data = {'item_id': self.image_id}
+    #     self.response = self.client.post(
+    #         reverse('api:image-like'),
+    #         self.imagelike_data,
+    #         format="json")
+    #     self.assertEqual(self.response.status_code, status.HTTP_200_OK)

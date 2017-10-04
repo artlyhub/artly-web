@@ -98,9 +98,9 @@ class ProfileImageSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'profile',
                   'image',
-                  'status_main',
                   'created',
                   'updated',)
+        read_only_fields = ('profile',)
 
 
 class UserProfileImageSerializer(serializers.HyperlinkedModelSerializer):
@@ -152,7 +152,7 @@ class FollowerSerializer(serializers.ModelSerializer):
         return obj.followed_by_list.count()
 
 
-class FollowerAddSerializer(serializers.ModelSerializer):
+class AddFollowerSerializer(serializers.ModelSerializer):
     follow = serializers.CharField(source='following', label='Follow')
 
     class Meta:
