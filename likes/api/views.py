@@ -5,18 +5,21 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
+from accounts.models import ProfileImage
 from comments.models import Comment, Reply
 from items.models import Image, Item
 from likes.models import (
     CommentLike,
     ImageLike,
     ItemLike,
+    ProfileImageLike,
     ReplyLike,
 )
 from likes.api.serializers import (
     LikeCommentSerializer,
     LikeImageSerializer,
     LikeItemSerializer,
+    LikeProfileImageSerializer,
     LikeReplySerializer,
 )
 
@@ -24,6 +27,25 @@ from utils.permissions import IsOwnerOrReadOnly
 from utils.paginations import UserResultPagination, StandardResultPagination
 
 User = get_user_model()
+
+
+class LikeProfileImageAPIView(APIView):
+    serializer_class = LikeProfileImageSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            data = request.data
+            serializer = LikeProfileImageSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                item_id = serializer.data['item_id']
+                to_toggle_item = ProfileImage.objects.filter(pk=item_id).first()
+                liked = ProfileImageLike.objects.toggle_like(request.user.username, to_toggle_item.id, 'item')
+                if liked:
+                    return Response({'status': 'liked'}, status=HTTP_200_OK)
+                else:
+                    return Response({'status': 'unliked'}, status=HTTP_200_OK)
+            return Response(serializers.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class LikeItemAPIView(APIView):

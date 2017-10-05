@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from accounts.models import Profile
+from accounts.models import Profile, ProfileImage
 from comments.models import Comment, Reply
 from items.models import Image, Item
 
@@ -13,6 +13,7 @@ class LikeManager(models.Manager):
         # item_type: "item", "image"
         profile = Profile.objects.get(user=username)
         qs = {
+            'profile_image': profile.profile_image_likes,
             'item': profile.item_likes,
             'image': profile.image_likes,
             'comment': profile.comment_likes,
@@ -25,18 +26,21 @@ class LikeManager(models.Manager):
     def toggle_like(self, username, item_id, item_type):
         profile = Profile.objects.get(user=username)
         model = {
+            'profile_image': ProfileImage,
             'item': Item,
             'image': Image,
             'comment': Comment,
             'reply': Reply
         }
         model_like = {
+            'profile_image': ProfileImageLike,
             'item': ItemLike,
             'image': ImageLike,
             'comment': CommentLike,
             'reply': ReplyLike
         }
         qs = {
+            'profile_image': profile.profile_image_likes,
             'item': profile.item_likes,
             'image': profile.image_likes,
             'comment': profile.comment_likes,
@@ -52,6 +56,22 @@ class LikeManager(models.Manager):
             itemlike.save()
             liked = True
         return liked
+
+
+class ProfileImageLike(models.Model):
+    profile = models.ForeignKey(Profile,
+                                on_delete=models.CASCADE,
+                                related_name='profile_image_likes')
+    item = models.ForeignKey(ProfileImage,
+                             on_delete=models.CASCADE,
+                             related_name='liked',
+                             null=True,
+                             blank=True)
+
+    objects = LikeManager()
+
+    def __str__(self):
+        return '{} likes {}'.format(self.profile.user.username, self.item)
 
 
 class ItemLike(models.Model):

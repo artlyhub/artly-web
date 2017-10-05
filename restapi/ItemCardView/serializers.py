@@ -35,7 +35,8 @@ class ItemCardSerializer(serializers.ModelSerializer):
     def get_main_image(self, obj):
         request = self.context.get('request')
         main_image = obj.main_image
-        main_image['image'] = request.build_absolute_uri(main_image['image'])
+        if main_image['image'] != None:
+            main_image['image'] = request.build_absolute_uri(main_image['image'])
         return main_image
 
     def get_owner(self, obj):

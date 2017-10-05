@@ -8,6 +8,7 @@ User = get_user_model()
 
 class ImageSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(max_length=None, use_url=True)
+    tags = serializers.ListField(allow_null=True)
 
     class Meta:
         model = Image
@@ -23,6 +24,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    tags = serializers.ListField(allow_null=True)
     images = ImageSerializer(many=True, read_only=True)
 
     class Meta:

@@ -46,3 +46,32 @@ Domain name: https://www.artlyhub.com/
   * 팔로우:
     URL: /api/follow/
     REQ: POST
+
+
+2. Items API (아이템, 이미지):
+
+  * 아이템 목록:
+  (목적: 관리자 목록 관리 기능, 실제 사용 안 함)
+    URL: /api/item/
+    REQ: GET
+
+  * 아이템 생성:
+    URL: /api/item/
+    REQ: POST
+
+  * 아이템 디테일, 수정, 삭제:
+    URL: /api/item/<id>/ (예. /api/item/1/)
+    REQ: GET, PUT, DELETE
+
+  * 이미지 목록:
+  (목적: 관리자 목록 관리 기능, 실제 사용 안 함)
+    URl: /api/item-image/
+    REQ: GET
+
+  * 이미지 생성:
+    URL: /api/item-image/
+    REQ: POST
+
+  * 이미지 디테일, 수정, 삭제:
+    URL: /api/item-image/<id>/ (예. /api/item-image/1/)
+    REQ: GET, PUT, DELETE

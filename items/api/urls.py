@@ -1,6 +1,4 @@
-from django.conf.urls import url, include
-from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.conf.urls import url
 
 from items.api.views import (
     ImageAPIView,
