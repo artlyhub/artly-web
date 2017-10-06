@@ -2,11 +2,41 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 
-from accounts.models import Profile
+from accounts.models import Profile, ProfileImage
 from comments.models import Comment, Reply
 from items.models import Image, Item
 
 User = get_user_model()
+
+
+class ProfileImageCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('id',
+                  'profile',
+                  'item_type',
+                  'profile_image',
+                  'comment',
+                  'created',
+                  'updated',)
+        read_only_fields = ('profile',
+                            'item_type',
+                            'created',
+                            'updated',)
+
+    def create(self, validated_data):
+        profile = validated_data['profile']
+        item_type = 'PRF'
+        profile_image = validated_data['profile_image']
+        comment = validated_data['comment']
+        comment_obj = Comment(
+            profile=profile,
+            item_type=item_type,
+            profile_image=profile_image,
+            comment=comment
+        )
+        comment_obj.save()
+        return comment_obj
 
 
 class ItemCommentSerializer(serializers.ModelSerializer):
@@ -19,7 +49,8 @@ class ItemCommentSerializer(serializers.ModelSerializer):
                   'comment',
                   'created',
                   'updated',)
-        read_only_fields = ('item_type',
+        read_only_fields = ('profile',
+                            'item_type',
                             'created',
                             'updated',)
 
@@ -48,7 +79,8 @@ class ImageCommentSerializer(serializers.ModelSerializer):
                   'comment',
                   'created',
                   'updated',)
-        read_only_fields = ('item_type',
+        read_only_fields = ('profile',
+                            'item_type',
                             'created',
                             'updated',)
 
@@ -76,4 +108,6 @@ class CommentReplySerializer(serializers.ModelSerializer):
                   'reply',
                   'created',
                   'updated',)
-        read_only_fields = ('created', 'updated',)
+        read_only_fields = ('profile',
+                            'created',
+                            'updated',)

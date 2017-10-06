@@ -57,11 +57,16 @@ class Item(models.Model):
     @property
     def main_image(self):
         image = None
+
+        # check if main image exists
+        # if it exists, set image to that main image
         main_image = self.images.filter(status_main=1)
         main_image_exists = main_image.exists()
         if main_image_exists:
             image = main_image.first()
 
+        # check if images exist at all
+        # if it exists, get the image uploaded first
         images_exist = (self.images.count() != 0)
         if not main_image_exists and images_exist:
             image = self.images.order_by('created').first()
@@ -71,6 +76,7 @@ class Item(models.Model):
             image_desc = image.description
             image_created = image.created
 
+        # but if no images exist, set all attributes to None
         if not main_image_exists and not images_exist:
             image_url = None
             image_desc = None

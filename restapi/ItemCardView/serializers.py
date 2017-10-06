@@ -80,5 +80,5 @@ class ItemCardSerializer(serializers.ModelSerializer):
 
     def get_detail(self, obj):
         request = self.context.get('request')
-        item_details_url = reverse('api:item-details', args=(obj.id,))
+        item_details_url = reverse('api:itemdetailpage', args=(obj.id,))
         return request.build_absolute_uri(item_details_url)
