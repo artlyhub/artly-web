@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from likes.api.views import (
     LikeCommentAPIView,
+    LikeGroupAPIView,
     LikeImageAPIView,
     LikeItemAPIView,
     LikeProfileImageAPIView,
@@ -16,6 +17,8 @@ likes_api_urlpatterns = [
     url(r'^like/item/$', LikeItemAPIView.as_view(), name='item-like'),
 
     url(r'^like/item-image/$', LikeImageAPIView.as_view(), name='item-image-like'),
+
+    url(r'^like/group/$', LikeGroupAPIView.as_view(), name='group-like'),
 
     url(r'^like/comment/$', LikeCommentAPIView.as_view(), name='comment-like'),
 

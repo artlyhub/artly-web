@@ -44,8 +44,10 @@ INSTALLED_APPS = [
 
     'accounts',
     'comments',
+    'groups',
     'items',
     'likes',
+
     'restapi',
 ]
 
@@ -145,13 +147,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_DIR = os.path.join(BASE_DIR, 'static-dev/')
 STATICFILES_DIRS = [
-    os.path.join(STATIC_DIR, "css/dist"),
-    os.path.join(STATIC_DIR, "js/dist"),
-    os.path.join(STATIC_DIR, "img"),
-    os.path.join(STATIC_DIR, "semantic/dist"),
-    os.path.join(STATIC_DIR, "vendor/jquery/dist"),
-    os.path.join(STATIC_DIR, "vendor/font-awesome/css"),
-    os.path.join(STATIC_DIR, "vendor/font-awesome/fonts"),
+    # os.path.join(STATIC_DIR, "css/dist"),
+    os.path.join(STATIC_DIR, "dist"),
+    # os.path.join(STATIC_DIR, "img"),
+    # os.path.join(STATIC_DIR, "semantic/dist"),
+    # os.path.join(STATIC_DIR, "vendor/jquery/dist"),
+    # os.path.join(STATIC_DIR, "vendor/font-awesome/css"),
+    # os.path.join(STATIC_DIR, "vendor/font-awesome/fonts"),
 ]
 
 MEDIA_URL = '/media/'

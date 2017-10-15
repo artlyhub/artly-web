@@ -1,15 +1,16 @@
 {
   "name": "artlyhub",
   "version": "1.0.0",
-  "description": "artlyhub web app",
-  "main": "index.js",
+  "description": "",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
+    "start": "webpack-dev-server --hot --host 0.0.0.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/artlyhub/artly-web.git"
-  },
+  "repository": "git+https://github.com/artlyhub/artly-web.git",
   "author": "Phillip Park",
   "license": "ISC",
   "bugs": {
@@ -17,13 +18,40 @@
   },
   "homepage": "https://github.com/artlyhub/artly-web#readme",
   "devDependencies": {
+    "yarn": "^1.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
     "node-sass": "^4.5.3",
+    "postcss": "^6.0.13",
+    "postcss-load-config": "^1.2.0",
+    "postcss-loader": "^2.0.8",
+    "promise-polyfill": "^6.0.2",
+    "radium": "^0.19.5",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-scripts": "^1.0.14",
+    "redux": "^3.7.2",
     "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.6.0"
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.74.2",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.7.1",
+    "webpack-dev-server": "^2.9.1"
   }
 }

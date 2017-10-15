@@ -3,6 +3,8 @@ from django.conf.urls import url
 from comments.api.views import (
     CommentReplyAPIView,
     CommentReplyDetailsAPIView,
+    GroupCommentAPIView,
+    GroupCommentDetailsAPIView,
     ImageCommentAPIView,
     ImageCommentDetailsAPIView,
     ItemCommentAPIView,
@@ -17,6 +19,10 @@ comments_api_urlpatterns = [
     url(r'^comment/profile-image/$', ProfileImageCommentAPIView.as_view(), name='profile-image-comment'),
 
     url(r'^comment/profile-image/(?P<pk>\d+)/$', ProfileImageCommentDetailsAPIView.as_view(), name='profile-image-comment-details'),
+
+    url(r'^comment/group/$', GroupCommentAPIView.as_view(), name='group-comment'),
+
+    url(r'^comment/group/(?P<pk>\d+)/$', GroupCommentDetailsAPIView.as_view(), name='group-comment-details'),
 
     url(r'^comment/item/$', ItemCommentAPIView.as_view(), name='item-comment'),
 

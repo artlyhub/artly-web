@@ -4,6 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from accounts.api.urls import accounts_api_urlpatterns
 from comments.api.urls import comments_api_urlpatterns
+from groups.api.urls import groups_api_urlpatterns
 from items.api.urls import items_api_urlpatterns
 from likes.api.urls import likes_api_urlpatterns
 
@@ -21,6 +22,7 @@ urlpatterns = [
 
 urlpatterns += accounts_api_urlpatterns
 urlpatterns += comments_api_urlpatterns
+urlpatterns += groups_api_urlpatterns
 urlpatterns += items_api_urlpatterns
 urlpatterns += likes_api_urlpatterns
 urlpatterns = format_suffix_patterns(urlpatterns)

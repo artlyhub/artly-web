@@ -4,9 +4,11 @@ from rest_framework.serializers import ValidationError
 
 from accounts.models import ProfileImage
 from comments.models import Comment, Reply
+from groups.models import Group
 from items.models import Image, Item
 from likes.models import (
     CommentLike,
+    GroupLike,
     ImageLike,
     ItemLike,
     ProfileImageLike,
@@ -73,6 +75,26 @@ class LikeImageSerializer(serializers.ModelSerializer):
         item_qs = Image.objects.filter(pk=item_id)
         if not item_qs.exists():
             raise ValidationError('존재하지 않는 이미지입니다.')
+        return data
+
+
+class LikeGroupSerializer(serializers.ModelSerializer):
+    item_id = serializers.CharField(source='item', label='Group ID')
+
+    class Meta:
+        model = GroupLike
+        fields = ('item_id',)
+        extra_kwargs = {
+            'item_id': {
+                'write_only': True
+            },
+        }
+
+    def validate(self, data):
+        item_id = data.get('item')
+        item_qs = Group.objects.filter(pk=item_id)
+        if not item_qs.exists():
+            raise ValidationError('존재하지 않는 그룹입니다.')
         return data
 
 
