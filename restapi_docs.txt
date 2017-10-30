@@ -75,3 +75,124 @@ Domain name: https://www.artlyhub.com/
   * 이미지 디테일, 수정, 삭제:
     URL: /api/item-image/<id>/ (예. /api/item-image/1/)
     REQ: GET, PUT, DELETE
+
+
+3. Likes API (좋아요):
+
+  * 프로필사진 좋아요:
+    URL: /api/like/profile-image/
+    REQ: POST (프로필 사진 아이디 포스트)
+
+  * 아이템 좋아요:
+    URL: /api/like/item/
+    REQ: POST (아이템 아이디 포스트)
+
+  * 아이템사진 좋아요:
+    URL: /api/like/item-image/
+    REQ: POST (아이템 사진 아이디 포스트)
+
+  * 그룹 좋아요:
+    URL: /api/like/group/
+    REQ: POST (그룹 아이디 포스트)
+
+  * 댓글 좋아요:
+    URL: /api/like/comment/
+    REQ: POST (댓글 아이디 포스트)
+
+  * 댓글-답급 좋아요:
+    URL: /api/like/reply/
+    REQ: POST (댓글-답급 아이디 포스트)
+
+
+4. Comments API (댓글):
+
+  * 프로필사진 댓글달기:
+    URL: /api/comment/profile-image/
+    REQ: POST (프로필 사진 아이디 포스트)
+
+  * 프로필사진 디테일, 수정, 삭제:
+    URL: /api/comment/profile-image/<id>/
+    REQ: GET, PUT, DELETE
+
+  * 아이템 댓글달기:
+    URL: /api/comment/item/
+    REQ: POST (아이템 아이디 포스트)
+
+  * 아이템 디테일, 수정, 삭제:
+    URL: /api/comment/item/<id>/
+    REQ: GET, PUT, DELETE
+
+  * 아이템사진 댓글달기:
+    URL: /api/comment/item-image/
+    REQ: POST (아이템 사진 아이디 포스트)
+
+  * 아이템사진 디테일, 수정, 삭제:
+    URL: /api/comment/item-image/<id>/
+    REQ: GET, PUT, DELETE
+
+  * 그룹 댓글달기:
+    URL: /api/comment/group/
+    REQ: POST (그룹 아이디 포스트)
+
+  * 그룹 디테일, 수정, 삭제:
+    URL: /api/comment/group/<id>/
+    REQ: GET, PUT, DELETE
+
+  * 댓글-답급 댓글달기:
+    URL: /api/comment/reply/
+    REQ: POST (댓글-답급 아이디 포스트)
+
+  * 댓글-답급 디테일, 수정, 삭제:
+    URL: /api/comment/reply/<id>/
+    REQ: GET, PUT, DELETE
+
+
+5. Groups API (소모임):
+
+  * 그룹 목록:
+    URL: /api/group/
+    REQ: GET
+
+  * 그룹 생성:
+    URL: /api/group/
+    REQ: POST
+
+  * 그룹 디테일, 수정, 삭제:
+    URL: /api/group/<id>/
+    REQ: GET, PUT, DELETE
+
+  * 그룹사진 목록:
+    URL: /api/group-image/
+    REQ: GET
+
+  * 그룹사진 생성:
+    URL: /api/group-image/
+    REQ: POST
+
+  * 그룹사진 디테일, 수정, 삭제:
+    URL: /api/group-image/<id>/
+    REQ: GET, PUT, DELETE
+
+
+6. View Level API (API 묶음):
+
+  * 댓글뷰:
+    URL: /api/commentview/?search=<PRF, ITM, IMG, GRP>&id=<id>&ordering=<id, created, updated, ...>
+    (예. /api/commentview/?search=ITM&id=1&ordering=-created)
+    REQ: GET
+
+  * 아이템카드뷰 목록:
+    URL: /api/itemcardview/
+    REQ: GET
+
+  * 아이템카드뷰 디테일:
+    URL: /api/itemcardview/<id>
+    REQ: GET
+
+  * 상세 아이템 목록:
+    URL: /api/itemdetailpage/
+    REQ: GET
+
+  * 상세 아이템 디테일:
+    URL: /api/itemdetailview/<id>
+    REQ: GET

@@ -3,6 +3,7 @@ from django.db import models
 
 from accounts.models import Profile, ProfileImage
 from comments.models import Comment, Reply
+from groups.models import Group
 from items.models import Image, Item
 
 
@@ -16,6 +17,7 @@ class LikeManager(models.Manager):
             'profile_image': profile.profile_image_likes,
             'item': profile.item_likes,
             'image': profile.image_likes,
+            'group': profile.group_likes,
             'comment': profile.comment_likes,
             'reply': profile.reply_likes
         }
@@ -29,6 +31,7 @@ class LikeManager(models.Manager):
             'profile_image': ProfileImage,
             'item': Item,
             'image': Image,
+            'group': Group,
             'comment': Comment,
             'reply': Reply
         }
@@ -36,6 +39,7 @@ class LikeManager(models.Manager):
             'profile_image': ProfileImageLike,
             'item': ItemLike,
             'image': ImageLike,
+            'group': GroupLike,
             'comment': CommentLike,
             'reply': ReplyLike
         }
@@ -43,6 +47,7 @@ class LikeManager(models.Manager):
             'profile_image': profile.profile_image_likes,
             'item': profile.item_likes,
             'image': profile.image_likes,
+            'group': profile.group_likes,
             'comment': profile.comment_likes,
             'reply': profile.reply_likes
         }
@@ -99,6 +104,22 @@ class ImageLike(models.Model):
                               related_name='liked',
                               null=True,
                               blank=True)
+
+    objects = LikeManager()
+
+    def __str__(self):
+        return '{} likes {}'.format(self.profile.user.username, self.item)
+
+
+class GroupLike(models.Model):
+    profile = models.ForeignKey(Profile,
+                                on_delete=models.CASCADE,
+                                related_name='group_likes')
+    item = models.ForeignKey(Group,
+                             on_delete=models.CASCADE,
+                             related_name='liked',
+                             null=True,
+                             blank=True)
 
     objects = LikeManager()
 

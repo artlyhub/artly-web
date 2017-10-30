@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+  {% if image %}
+    <p>File uploaded at: <a href="{{ image.image.url }}">{{ image.image.url }}</a></p>
+    {% thumbnail image.image "250x170" crop="80% top" as im %}
+        <p>{{ im.url }}</p>
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+    {% endthumbnail %}
+  {% endif %}
+
+  <p><a href="#">Return to home</a></p>
+{% endblock %}

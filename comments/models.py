@@ -2,12 +2,14 @@ from django.conf import settings
 from django.db import models
 
 from accounts.models import Profile, ProfileImage
+from groups.models import Group
 from items.models import Image, Item
 
 ITEM_TYPES = (
     ('PRF', 'Profile Image'),
     ('ITM', 'Item'),
     ('IMG', 'Image'),
+    ('GRP', 'Group'),
 )
 
 class Comment(models.Model):
@@ -26,6 +28,11 @@ class Comment(models.Model):
                              null=True,
                              blank=True)
     image = models.ForeignKey(Image,
+                              on_delete=models.CASCADE,
+                              related_name='comments',
+                              null=True,
+                              blank=True)
+    group = models.ForeignKey(Group,
                               on_delete=models.CASCADE,
                               related_name='comments',
                               null=True,

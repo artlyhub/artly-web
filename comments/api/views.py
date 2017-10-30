@@ -7,11 +7,13 @@ from rest_framework.views import APIView
 
 from comments.api.serializers import (
     CommentReplySerializer,
+    GroupCommentSerializer,
     ImageCommentSerializer,
     ItemCommentSerializer,
     ProfileImageCommentSerializer,
 )
 from comments.models import Comment, Reply
+from groups.models import Group
 from utils.permissions import IsOwnerOrReadOnly
 from utils.paginations import UserResultPagination, StandardResultPagination
 
@@ -60,6 +62,21 @@ class ImageCommentAPIView(generics.ListCreateAPIView):
 class ImageCommentDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = ImageCommentSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+
+class GroupCommentAPIView(generics.ListCreateAPIView):
+    queryset = Comment.objects.filter(item_type='GRP').order_by('-id')
+    serializer_class = GroupCommentSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(profile=self.request.user.profile)
+
+
+class GroupCommentDetailsAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = GroupCommentSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
 
 
