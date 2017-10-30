@@ -19,7 +19,7 @@ DB_USER = sensitives['db_user']
 DB_PW = sensitives['db_pw']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+#DEBUG = True
 DEBUG = sensitives['debug']
 
 ALLOWED_HOSTS = ['artlyhub.com',
@@ -41,11 +41,13 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'sorl.thumbnail',
 
     'accounts',
     'comments',
     'items',
     'likes',
+
     'restapi',
 ]
 
@@ -159,6 +161,8 @@ if DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 else:
     MEDIA_ROOT = sensitives['media_root']
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 200000000
 
 if not DEBUG:
     CELERY_BROKER_URL = 'redis://localhost:6379'
