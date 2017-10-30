@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'sorl.thumbnail', # pip install git+git://github.com/mariocesar/sorl-thumbnail@v12.3
 
     'accounts',
     'comments',
